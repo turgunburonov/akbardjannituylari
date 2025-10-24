@@ -159,8 +159,13 @@
         Your browser does not support the audio element.
     </audio>
     
+    <!-- Countdown Overlay -->
+    <div id="countdownOverlay" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.7); display: flex; justify-content: center; align-items: center; z-index: 4000; transition: opacity 0.5s ease-out, visibility 0.5s ease-out;">
+        <div id="countdown" style="font-size: 120px; color: white; font-family: 'Dancing Script', cursive; font-weight: bold; text-shadow: 0 0 20px rgba(255,255,255,0.5);">5</div>
+    </div>
+    
     <!-- Play Button Overlay -->
-    <div id="playOverlay" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.7); display: flex; justify-content: center; align-items: center; z-index: 3000; transition: opacity 0.5s ease-out, visibility 0.5s ease-out;">
+    <div id="playOverlay" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.7); display: none; justify-content: center; align-items: center; z-index: 3000; transition: opacity 0.5s ease-out, visibility 0.5s ease-out;">
         <button id="playButton" style="
             align-items: center;
             appearance: none;
@@ -289,12 +294,39 @@
             }
         });
         
-        // Show the play button overlay initially with hover effect
+        // Start countdown when page loads
         document.addEventListener('DOMContentLoaded', () => {
-            playOverlay.style.opacity = '1';
-            playOverlay.style.visibility = 'visible';
+            const countdownOverlay = document.getElementById('countdownOverlay');
+            const countdownElement = document.getElementById('countdown');
+            let count = 5;
             
-            // Add hover effect
+            // Start countdown
+            const countdownInterval = setInterval(() => {
+                count--;
+                if (count > 0) {
+                    // Add animation class
+                    countdownElement.style.animation = 'none';
+                    countdownElement.offsetHeight; // Trigger reflow
+                    countdownElement.style.animation = 'popIn 0.5s ease-out';
+                    
+                    // Update number
+                    countdownElement.textContent = count;
+                } else {
+                    // Countdown finished
+                    clearInterval(countdownInterval);
+                    countdownOverlay.style.opacity = '0';
+                    countdownOverlay.style.visibility = 'hidden';
+                    
+                    // Show play button with fade in
+                    playOverlay.style.display = 'flex';
+                    setTimeout(() => {
+                        playOverlay.style.opacity = '1';
+                        playOverlay.style.visibility = 'visible';
+                    }, 10);
+                }
+            }, 1000);
+            
+            // Add hover effect to play button
             playButton.addEventListener('mouseenter', function() {
                 playButton.style.boxShadow = 'rgba(45, 35, 66, 0.3) 0 4px 8px, rgba(45, 35, 66, 0.2) 0 7px 13px -3px, #d6d6e7 0 -3px 0 inset';
                 playButton.style.transform = 'translateY(-2px)';
