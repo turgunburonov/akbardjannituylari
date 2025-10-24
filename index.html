@@ -209,9 +209,14 @@
         <div style="background: white; padding: 30px 50px; border-radius: 15px; text-align: center; transform: translateY(-20px); transition: transform 0.5s ease; box-shadow: 0 10px 30px rgba(0,0,0,0.2); max-width: 80%;">
             <h2 style="color: #333; margin-bottom: 20px; font-family: 'Dancing Script', cursive; font-size: 2em;">Rahmat!</h2>
             <p style="color: #555; margin-bottom: 25px; font-size: 1.2em;">Sizni kutyapmiz! ❤️</p>
-            <button id="closePopupBtn" style="padding: 10px 25px; font-size: 16px; background: linear-gradient(45deg, #4CAF50, #45a049); color: white; border: none; border-radius: 25px; cursor: pointer; transition: all 0.3s ease;">
-                Yopish
-            </button>
+            <div style="display: flex; gap: 15px; justify-content: center;">
+                <button id="closePopupBtn" style="padding: 10px 25px; font-size: 16px; background: linear-gradient(45deg, #4CAF50, #45a049); color: white; border: none; border-radius: 25px; cursor: pointer; transition: all 0.3s ease; flex: 1;">
+                    Yopish
+                </button>
+                <button id="yopishButton" style="padding: 10px 25px; font-size: 16px; background: linear-gradient(45deg, #2196F3, #1976D2); color: white; border: none; border-radius: 25px; cursor: pointer; transition: all 0.3s ease; flex: 1;">
+                    Manzil
+                </button>
+            </div>
         </div>
     </div>
     
@@ -365,6 +370,11 @@
             }, 10);
         });
         
+        // Yopish Button Click Handler
+        document.getElementById('yopishButton').addEventListener('click', function() {
+            window.location.href = 'https://maps.app.goo.gl/vuY16ub9fSrVsLYX6?g_st=atm';
+        });
+
         // Close popup button handler
         document.getElementById('closePopupBtn').addEventListener('click', function() {
             const popup = document.getElementById('thankYouPopup');
